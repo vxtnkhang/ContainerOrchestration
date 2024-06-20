@@ -9,7 +9,7 @@ curl -o tigera-operator.yaml https://raw.githubusercontent.com/projectcalico/cal
 curl -o custom-resources.yaml https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/custom-resources.yaml
 kubectl create -f tigera-operator.yaml
 dnf -y install yq
-yq -e -i '.spec.calicoNetwork.ipPools[0].cidr = "10.0.0.0/16"' custom-resources.yaml
+yq -e -i '(select(.spec.calicoNetwork.ipPools) | .spec.calicoNetwork.ipPools[0].cidr) = "10.0.0.0/16"' custom-resources.yaml
 kubectl create -f custom-resources.yaml
 cd $CURRENT_WORKING_DIR
 
