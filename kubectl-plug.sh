@@ -13,11 +13,13 @@ yq -e -i '(select(.spec.calicoNetwork.ipPools) | .spec.calicoNetwork.ipPools[0].
 kubectl create -f custom-resources.yaml
 cd $CURRENT_WORKING_DIR
 
+# Must wait...
+
 # Block storage: longhorn
 mkdir longhorn
 cd longhorn
-systemctl enable --now iscsid
+systemctl enable --now iscsid # Enable on every node
 curl -sSfL https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/scripts/environment_check.sh | bash
-curl -o longhorn.yaml https://raw.githubusercontent.com/longhorn/v1.6.2/deploy/longhorn.yaml
+curl -o longhorn.yaml https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/deploy/longhorn.yaml
 kubectl apply -f longhorn.yaml
 cd $CURRENT_WORKING_DIR

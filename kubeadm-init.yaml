@@ -11,10 +11,10 @@ bootstrapTokens:
   - authentication
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 192.168.0.2
+    node-ip: $(MASTER_IP)
   taints: []
 localAPIEndpoint:
-  advertiseAddress: 192.168.0.2
+  advertiseAddress: $(MASTER_IP)
 certificateKey: 4c47d3d9db10079c0e277cb809c3fdba278c4aa76f7e099b86cc9d23bdba1e37
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -24,8 +24,8 @@ apiServer:
   extraArgs:
     service-node-port-range: 80-32767
 networking:
-  podSubnet: 10.0.0.0/16
-controlPlaneEndpoint: 192.168.0.2:6443
+  podSubnet: $(CIDR)
+controlPlaneEndpoint: $(MASTER_IP):6443
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
