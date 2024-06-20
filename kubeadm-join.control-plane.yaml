@@ -1,0 +1,19 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: JoinConfiguration
+discovery:
+  bootstrapToken:
+    apiServerEndpoint: 192.168.0.2:6443
+    token: acd5cb.gq1051m1py7t903k
+    unsafeSkipCAVerification: true
+  timeout: 5m0s
+nodeRegistration:
+  kubeletExtraArgs:
+    node-ip: 192.168.0.3
+  taints: []
+  ignorePreflightErrors:
+    - DirAvailable-etc-kubernetes-manifests
+controlPlane:
+  localAPIEndpoint:
+    advertiseAddress: 192.168.0.3
+  certificateKey: 4c47d3d9db10079c0e277cb809c3fdba278c4aa76f7e099b86cc9d23bdba1e37
